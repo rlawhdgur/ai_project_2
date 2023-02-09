@@ -1,4 +1,5 @@
 # 내 방, 어디 ? (version2)
+[streamlit 배포](https://rlawhdgur-ai-project-2-app-tn50qs.streamlit.app/)
 ![image](https://user-images.githubusercontent.com/120995529/216347597-1ff2140e-78d4-424d-8ffc-4ff9fdc269f9.png)
 
 ## 개요
