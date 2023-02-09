@@ -14,3 +14,5 @@ yfinance
 stqdm
 prophet
 seaborn
+openai
+streamlit_chat
