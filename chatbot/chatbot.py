@@ -55,7 +55,9 @@ def chatrun():
             )
             message = completions.choices[0].text
             return message
-    st.title("챗봇 물어봐!!")
+    st.markdown("""
+    ## 챗봇 물어봐🤖
+    """)
     st.write("부동산 검색예시 - 부동산 xx구 20220101")
     # Storing the chat
     if 'generated' not in st.session_state:
