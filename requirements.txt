@@ -16,3 +16,4 @@ prophet
 seaborn
 openai
 streamlit_chat
+requests
