@@ -14,6 +14,8 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 # 다른 함수 import
 from update import update_data
+from update import run_update
+
 
 def run_title():
     """홈페이지에서 인덱스화면을 표시하는 함수입니다.
@@ -31,7 +33,7 @@ def run_title():
     #url = f'http://openapi.seoul.go.kr:8088/{service_key}/json/tbLnOpendataRentV/
     # service_key : 
 
-
+    # run_update()
     data = update_data()
     # data = pd.read_csv('data/bds_data.csv', encoding='cp949')
 

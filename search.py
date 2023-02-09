@@ -30,11 +30,11 @@ def run_search():
     gu = data['SGG_NM'].unique()
 
     # 해당 구 선택
-    gu_select = st.sidebar.selectbox('구', gu)
+    gu_select = st.sidebar.selectbox('행정구를 선택해주세요', gu)
 
     # 구에 해당하는 동 선택
     dong = data['BJDONG_NM'][data['SGG_NM']== gu_select].unique()
-    dong_select = st.sidebar.selectbox('동', dong)
+    dong_select = st.sidebar.selectbox('행정동을 선택해주세요', dong)
 
     # 전세 / 월세 선택
     rent_type = data['RENT_GBN'].unique()
@@ -182,8 +182,10 @@ def run_search():
         else:
             type_search = (data['RENT_GBN'] == type_select)
 
-        # st.write(type(data['RENT_GTN']))
-        # st.write(type(rent_gtn_select[0]))
+        # st.write(data['RENT_GTN'].dtype)
+        # st.write(rent_gtn_select[0].dtype)
+        data['RENT_GTN'] = pd.to_numeric(data['RENT_GTN'])
+        data['RENT_FEE']= pd.to_numeric(data['RENT_FEE'])
         rent_gtn_search = (data['RENT_GTN'] >= rent_gtn_select[0]) & (data['RENT_GTN'] <= rent_gtn_select[1])
         # rent_gtn_search = (rent_gtn_select[0] <= data['RENT_GTN']) & (data['RENT_GTN'] <= rent_gtn_select[1])
         rent_fee_search = (data['RENT_FEE'] >= rent_fee_select[0]) & (data['RENT_FEE'] <= rent_fee_select[1])

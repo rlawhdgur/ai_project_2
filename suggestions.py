@@ -1,109 +1,75 @@
 # 건의사항
 
-# 라이브러리
 import streamlit as st
 import sqlite3
 import time
 import pandas as pd
+from PIL import Image
 
-conn = sqlite3.connect('suggestion.db', check_same_thread=False)
+conn = sqlite3.connect('data/suggestion.db', check_same_thread=False)
 cur = conn.cursor()
 
 # 테이블 생성
 def create_tb():
-    cur.execute('CREATE TABLE IF NOT EXISTS suggestion(author CHAR, email VARCHAR, title TEXT, comment TEXT, date TEXT, status TEXT)' )
+    cur.execute('CREATE TABLE IF NOT EXISTS suggestion(author CHAR, pword CHAR, email VARCHAR, title TEXT, comment TEXT, date TEXT, status TEXT)' )
     conn.commit()
 
 # db 입력
-def add_data(author, pword, title, date, comment, status):
-    params = (author, pword, title, str(date), comment, status)
-    cur.execute("INSERT INTO suggestion(author, email, title, date, comment, status) VALUES (?,?,?,?,?,?)",params)
+def add_data(author, pword, email, title, comment, date, status):
+    params = (author, pword, email, title, comment, str(date), status)
+    cur.execute("INSERT INTO suggestion(author, pword, email, title, comment, date, status) VALUES (?,?,?,?,?,?,?)",params)
     conn.commit()
 
 # 목록 불러오기
 def sugg_list():
-    cur.execute('SELECT author, title, date, comment, status FROM suggestion')
+    cur.execute('SELECT author, title, comment, date, status FROM suggestion ORDER BY date DESC')
     sugg = cur.fetchall()
     return sugg
 
-# # 수정 (update)
-# def data_update(username):
-#     pass
-# # 삭제 (delete)
-# def data_delete(username):
-#     cur.execute('DELETE FROM suggestion WHERE AUTHOR =:AUTHOR' ,{'AUTHOR':author})
-#     conn.commit()
-#     # conn.close()
-
 # 검색 (작성자명)
 def get_by_author(author):
-	cur.execute("SELECT author, title, date, comment, status FROM suggestion WHERE author like '%{}%'".format(author))
+	cur.execute("SELECT author, title, comment, date, status FROM suggestion WHERE author like '%{}%'".format(author))
 	data = cur.fetchall()
 	return data
 # 검색(제목)
 def get_by_title(title):
-	cur.execute("SELECT author, title, date, comment, status FROM suggestion WHERE title like '%{}%'".format(title))
+	cur.execute("SELECT author, title, comment, date, status FROM suggestion WHERE title like '%{}%'".format(title))
 	data = cur.fetchall()
 	return data
 # 검색(내용)
 def get_by_comment(comment):
-	cur.execute("SELECT author, title, date, comment, status FROM suggestion WHERE comment like '%{}%'".format(comment))
+	cur.execute("SELECT author, title, comment, date, status FROM suggestion WHERE comment like '%{}%'".format(comment))
 	data = cur.fetchall()
 	return data
 
 # 처리상태 수정
-def update_status(email):
-    cur.execute('UPDATE suggestion SET status = "처리완료" WHERE email="{}"'.format(email))
+def admin_complete(author, title):
+    cur.execute('UPDATE suggestion SET status = "처리완료" WHERE author="{}" AND title="{}"'.format(author, title))
     conn.commit()
-def recover_status(email):
-    cur.execute('UPDATE suggestion SET status = "접수" WHERE email="{}"'.format(email))
+def admin_recover(author, title):
+    cur.execute('UPDATE suggestion SET status = "접수" WHERE author="{}" AND title="{}"'.format(author, title))
     conn.commit()
-
-def delete_post(email):
-    cur.execute('DELETE FROM suggestion WHERE email = "{}"'.format(email))
+def admin_delete(author, title):
+    cur.execute('DELETE FROM suggestion WHERE author="{}" AND title="{}"'.format(author, title))
     conn.commit()
      # conn.close()
 
+
 # 게시글 수정/삭제
 def update_sugg(title, comment, author, pword):
-    cur.execute('UPDATE suggestion SET ??')
+    cur.execute('UPDATE suggestion SET title="{}", comment="{}" WHERE author="{}" AND pword="{}"'.format(title, comment, author, pword))
+    conn.commit()
+def delete_sugg(author, pword, title):
+    cur.execute('DELETE FROM suggestion WHERE author="{}" AND pword="{}" AND title="{}"'.format(author,pword,title))
     conn.commit()
 
-# LOGIN SAMPLE CODE
-# conn = sqlite3.connect('data.db')
-# c = conn.cursor()
-# def create_usertable():
-# 	c.execute('CREATE TABLE IF NOT EXISTS users(username TEXT,password TEXT)')
-# def add_userdata(username,password):
-# 	c.execute('INSERT INTO users(username,password) VALUES (?,?)',(username,password))
-# 	conn.commit()
-# def login_user(username,password):
-# 	c.execute('SELECT * FROM users WHERE username =? AND password = ?',(username,password))
-# 	data = c.fetchall()
-# 	return data
 
-
-# ▲ DB 관련
-# -------------------------------------------------------------------------------------------------
+# ▲ DB 관련 
 # -------------------------------------------------------------------------------------------------
 # -------------------------------------------------------------------------------------------------
 
 def run_suggestions():
-    """홈페이지에서 건의사항 화면을 표시하는 함수입니다.
-    Args:
-        
-
-    Returns:
-        
-
-    Raises:
-        ValueError : 
-    """
-
-    st.subheader("""
-    건의사항💢
-    - *궁금하시거나 불편하신 점 있으시면 게시판 등록해주세요!!*
-    """)
+    st.subheader('건의사항')
 
     # 문의사항 입력
     with st.expander("문의하기"):
@@ -118,31 +84,42 @@ def run_suggestions():
                 email = st.text_input("이메일")
                 title = st.text_input("제목", max_chars = 50)
                 comment = st.text_area("내용 ")
-                submit = st.form_submit_button(label="작성")
                 date = time.strftime('%Y.%m.%d %H:%M:%S')
                 status = "접수"
+                submit = st.form_submit_button(label="작성")
                 # 문의사항 접수
                 if submit:
                     if author == "" or pword == "" or email == "" or title == "" or comment == "":
                         st.error('빈칸을 확인해주세요.')
-
                     else:
                         add_data(author, pword, email, title, comment, date, status)
                         st.success("문의하신 내용이 접수되었습니다! 답변은 이메일로 발송됩니다. 감사합니다.")
-                        st.snow() 
 
+        # 수정/삭제 (관리자 및 사용자)
         with sugg_tab2:
             form_update = st.form(key="update")
             with form_update:
+                st.markdown("_삭제시에는 삭제할 게시물의 **작성자명과 비밀번호, 제목**을 입력해주세요_")
                 cols = st.columns((1,1))
-                author = cols[0].text_input("작성자명 ", max_chars = 12)
+                author = cols[0].text_input("작성자명", max_chars = 12)
                 pword = cols[1].text_input("비밀번호", type = "password")
                 # email = st.text_input("이메일")
                 title = st.text_input("제목", max_chars = 50)
                 comment = st.text_area("내용 ")
-                if st.form_submit_button("수정"):
-                    pass
-                    # update_sugg(title, comment, author, pword)
+                cols = st.columns((1,1,1,1,1,1,1,1,1))
+                if cols[0].form_submit_button("수정"):
+                    if pword == "ok_myroomadmin" :
+                        admin_complete(author, title)
+                    elif pword == "no_myroomadmin" :
+                        admin_recover(author, title)
+                    else :
+                        update_sugg(title, comment, author, pword)
+                if cols[1].form_submit_button("삭제"):
+                    if pword == "del_myroomadmin":
+                        admin_delete(author, title)
+                    else :
+                        delete_sugg(author, pword, title)
+ 
 
     # 검색
     with st.expander("검색"):
@@ -172,35 +149,25 @@ def run_suggestions():
     tab1, tab2 = st.tabs(["자주 묻는 질문", "목록"])
 
     with tab1:
-        st.markdown("작업중 아래는 예시")
+        st.markdown("**_아래는 예시_**")
 
         if st.checkbox("📈전세예측 조회 방법"):
             st.markdown('''
-                        > 전세예측 조회방법
-                        1. 전세예측 탭을 클릭한다 2. 전세/월세 그래프 중 하나를 선택한다
+                        > **전세예측 조회방법**
+                        1. 전세예측 탭을 클릭한다 
+                        2. 전세/월세 그래프 중 하나를 선택한다
                         ''')
+        if st.checkbox("🔎전월세 검색 방법"):
+            st.markdown('''
+                        > **전월세 검색 방법**
+                        1. 전월세 검색 탭을 클릭한다
+                        2. ······.
+                        3. ······.
+                        ''')
+            st.image('https://images.mypetlife.co.kr/content/uploads/2018/12/09154907/cotton-tulear-2422612_1280.jpg', width = 600)
 
     with tab2:
         list = sugg_list()
         # st.write(list)
         df = pd.DataFrame(list, columns=['작성자명', '제목', '내용', '작성시각', '상태'])
         st.dataframe(df, use_container_width=True)
-
-
-    # 관리자 기능
-    admin_option = st.checkbox("관리자 메뉴")
-    if admin_option:
-        cols = st.columns((1,1))
-        command = cols[0].text_input("command")
-        email = cols[1].text_input("email")
-        if st.button ("확인"):
-            if command == "ok_myroomadmin":
-                update_status(email)
-            elif command == "no_myroomadmin":
-                recover_status(email)
-            elif command == "del_myroomadmin":
-                st.checkbox("삭제하시겠습니까? 작성하신 이메일을 다시 확인해주세요.")
-                # del_reason = st.text_input("삭제사유")
-                delete_post(email)
-            else :
-                st.warning("잘못된 명령입니다")

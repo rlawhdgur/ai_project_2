@@ -129,6 +129,7 @@ def run_update():
     # DB 접속
     dbConn=sqlite3.connect("data/mydata.db")
     cs=dbConn.cursor()
+    # print("접속")
 
     # API로 데이터 받아오기
     service_key = '4d42486779706d3034365957634870'
@@ -159,6 +160,7 @@ def run_update():
             dic['BUILD_YEAR'] = h['BUILD_YEAR']
             dic['HOUSE_GBN_NM'] = h['HOUSE_GBN_NM']
             data.append(dic)
+        # print("NEW")
 
     # 데이터 전처리
     df = pd.DataFrame(data)
@@ -175,20 +177,21 @@ def run_update():
     df['BUBN'] = df['BUBN'].astype('int').astype('str')
     df['FLR_NO'] = df['FLR_NO'].astype('int').astype('str')
     df['RENT_AREA'] = df['RENT_AREA'].astype('str') 
-
+    # print("전처리")
     # 데이터 DB 저장
     for row in df.itertuples():
         strSQL="INSERT INTO budongsan2(SGG_CD,SGG_NM,BJDONG_CD,BJDONG_NM,BOBN,BUBN,FLR_NO,CNTRCT_DE,RENT_GBN,RENT_AREA,RENT_GTN,RENT_FEE,BLDG_NM,BUILD_YEAR,HOUSE_GBN_NM)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
         cs.execute(strSQL,(row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[12],row[13],row[14],row[15]))
-
+    # print("저장")
     # 중복 데이터 제거
     cs.execute('DELETE FROM budongsan2 WHERE rowid not in (select min(rowid) from budongsan2 group by SGG_CD,SGG_NM,BJDONG_CD,BJDONG_NM,BOBN,BUBN,FLR_NO,CNTRCT_DE,RENT_GBN,RENT_AREA,RENT_GTN,RENT_FEE,BLDG_NM,BUILD_YEAR,HOUSE_GBN_NM)')
     dbConn.commit()
+    # print("제거")
 
     # DB 접속 종료
     cs.close()
     dbConn.close()
-
+    # print("종료")
 # 전체 데이터 불러오는 함수
 def update_data():
     '''
@@ -229,3 +232,10 @@ def update_data():
     dbConn.close()
     
     return df_bds
+
+
+if __name__ == "__main__":
+    run_update()
+    update_data()
+    print("Update")
+    
