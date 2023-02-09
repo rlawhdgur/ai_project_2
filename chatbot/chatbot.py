@@ -41,6 +41,7 @@ def chatrun():
                         message = a
                 return message
         else:
+
             completions = openai.Completion.create(
             engine = "text-davinci-003",
             prompt = prompt,
@@ -48,7 +49,7 @@ def chatrun():
             n = 1,
             stop = None,
             temperature = 0.5,
-        )
+            )
             message = completions.choices[0].text
             return message
     st.title("챗봇 물어봐!!")
@@ -71,4 +72,3 @@ def chatrun():
         for i in range(len(st.session_state['generated'])-1, -1,- 1):
             message(st.session_state["generated"][i], key=str(i))
             message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
-            
