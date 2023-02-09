@@ -50,60 +50,79 @@ def run_predict():
         전월세 월평균 그래프
         - *월별 보증금에 대한 지역구 전월세 그래프 입니다.*
         """)
-        t1, t2 = st.tabs(['전세 월평균 그래프', '월세 월평균 그래프', '전월세 전환율/대출이자 계산기'])
+        t1, t2 = st.tabs(['전세 월평균 그래프', '월세 월평균 그래프'])
         j_m_mean = pd.read_csv('data/gu_j_m_mean.csv', encoding='cp949')
         w_m_mean = pd.read_csv('data/gu_w_m_mean.csv', encoding='cp949')
         gu = np.array(j_m_mean['SGG_NM'].unique())
+        gu = st.multiselect('구를 선택하세요.', gu, default=['서초구', '강남구', '용산구'])
         with t1:
             c1 = st.checkbox('전세 월평균 그래프', True)
             fig = go.Figure()
-            dic = {}
             if c1:
                 fig = px.scatter(width=700)
-                for i in gu:
-                    dic.update({i : j_m_mean[j_m_mean['SGG_NM']==i]['RENT_GTN']})
                 for j in gu:
                     df = j_m_mean[j_m_mean['SGG_NM']==j]
                     fig.add_scatter(x=df['YM'], y=df['RENT_GTN'], name=j)
                 fig.update_layout(xaxis_title='날짜', yaxis_title='보증금(k=천만원)')
                 st.plotly_chart(fig)
             else:
-                st.write(j_m_mean)
+                a = 0
+                for i in gu:
+                    jm = pd.DataFrame(j_m_mean[j_m_mean['SGG_NM']==i])
+                    if a == 0:
+                        js = jm
+                        a += 1
+                    else:
+                        js = pd.concat([js , jm])
+                st.write(js)
         with t2:
             c1 = st.checkbox('보증금 월평균 그래프', True)
             
             fig = go.Figure()
-            dic = {}
             if c1:
                 fig = px.scatter(width=700, height=350)
-                for i in gu:
-                    dic.update({i : w_m_mean[w_m_mean['SGG_NM']==i]['RENT_GTN']})
                 for j in gu:
                     df = w_m_mean[w_m_mean['SGG_NM']==j]
                     fig.add_scatter(x=df['YM'], y=df['RENT_GTN'], name=j)
                 fig.update_layout(xaxis_title='날짜', yaxis_title='보증금(k=천만원)')
                 st.plotly_chart(fig)
             else:
-                st.write(j_m_mean)
+                a = 0
+                for i in gu:
+                    wm = pd.DataFrame(w_m_mean[w_m_mean['SGG_NM']==i])
+                    wm = wm.drop(columns=['RENT_FEE'],axis=0)
+                    if a == 0:
+                        ws = wm
+                        a += 1
+                    else:
+                        ws = pd.concat([ws , wm])
+                st.write(ws)
                 
             c2 = st.checkbox('월세 월평균 그래프', True)
             if c2:
                 fig = px.scatter(width=700, height=350)
-                for i in gu:
-                    dic.update({i : w_m_mean[w_m_mean['SGG_NM']==i]['RENT_GTN']})
                 for j in gu:
                     df = w_m_mean[w_m_mean['SGG_NM']==j]
                     fig.add_scatter(x=df['YM'], y=df['RENT_FEE'], name=j)
-                fig.update_layout(xaxis_title='날짜', yaxis_title='보증금(만원)')
+                fig.update_layout(xaxis_title='날짜', yaxis_title='보증금(k=천만원)')
                 st.plotly_chart(fig)
             else:
-                st.write(w_m_mean)
+                a = 0
+                for i in gu:
+                    wm = pd.DataFrame(w_m_mean[w_m_mean['SGG_NM']==i])
+                    wm = wm.drop(columns=['RENT_GTN'],axis=0)
+                    if a == 0:
+                        ws = wm
+                        a += 1
+                    else:
+                        ws = pd.concat([ws , wm])
+                st.write(ws)
 
     elif sub_choice == '전월세 실거래수 지역 순위':
         t1, t2 = st.tabs(['월세', '전세'])
         with t1:
             st.subheader("""
-            :달러:월세 실거래수 지역 순위
+            💵월세 실거래수 지역 순위
             - *현재 월세 실거래수 TOP 10*:1등_메달:
             """)
 
@@ -130,7 +149,7 @@ def run_predict():
         # 전세 실거래 수 지역 순위(월세와 같은 방식)
         with t2:
             st.subheader("""
-            :신용_카드:전세 실거래수 지역 순위
+            💳️전세 실거래수 지역 순위
             - *현재 전세 실거래수 TOP10*:트로피:
             """)
             data_m = data[(data['RENT_GBN'] == '전세') & (data['CNTRCT_DE']>=f'{before_month}')]

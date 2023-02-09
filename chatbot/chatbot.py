@@ -55,6 +55,7 @@ def chatrun():
             )
             message = completions.choices[0].text
             return message
+        
     st.markdown("""
     ## 챗봇 물어봐🤖
     """)
