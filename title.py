@@ -6,15 +6,16 @@ from streamlit_option_menu import option_menu
 import pandas as pd
 import numpy as np
 import plotly.express as px
-import plotly.graph_objects as go
+# import plotly.graph_objects as go
 import math
-import sqlite3
-import datetime
+# import sqlite3
+# import datetime
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 # 다른 함수 import
 from update import update_data
-from update import run_update
+# from update import run_update
+# from mean_db import dong_j_d_mean
 
 
 def run_title():
@@ -46,12 +47,16 @@ def run_title():
     # before_month = before_month.strftime("%Y-%m-%d")
 
     # 실거래 현황
-    
-    # st.subheader("""
-    # 👑실거래 현황 (최신순)
-    # - *최근 일주일간 서울시 실거래가 현황입니다!*
-    # *※ 매일 오전 10시 5분 데이터 갱신 ※*
-    # """)
+    st.subheader("""
+    👑실거래 현황 (최신순)
+    - *최근 서울시 실거래가 현황입니다!*
+    *※ 매일 오전 09시 이후 데이터 갱신 ※*
+    """)
+    # run_update()
+    data = update_data()
+    data2 = data.copy()
+    po = data2['SGG_NM'] == '영등포구'
+    tel = data2['HOUSE_GBN_NM'] == '아파트'
     # st.write("기간 : " + f'{before_month}' + " ~ " +f'{before_day}' + " (계약일 기준)")
     latest = data.loc[1,['CNTRCT_DE']].values[0]
     st.write("기간 : 2022.01.01 ~ " +f'{latest}' + " (계약일 기준)")
