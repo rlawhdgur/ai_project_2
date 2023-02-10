@@ -164,7 +164,7 @@ def run_suggestions():
                         2. ······.
                         3. ······.
                         ''')
-            st.image('https://images.mypetlife.co.kr/content/uploads/2018/12/09154907/cotton-tulear-2422612_1280.jpg', width = 600)
+            # st.image('https://images.mypetlife.co.kr/content/uploads/2018/12/09154907/cotton-tulear-2422612_1280.jpg', width = 600)
 
     with tab2:
         list = sugg_list()
