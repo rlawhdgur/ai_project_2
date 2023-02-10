@@ -18,8 +18,8 @@ import geopandas as gp
 # import os
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from stqdm import stqdm
-from time import sleep
+# from stqdm import stqdm
+# from time import sleep
 import warnings
 warnings.filterwarnings("ignore")
 # from stqdm_model import stqdm_model
@@ -48,6 +48,10 @@ def run_predict():
     # gu = np.array(j_m_mean['SGG_NM'].unique())
     if sub_choice == '선택해주세요':
         st.success("원하시는 메뉴를 선택해주세요!!")
+
+    elif sub_choice == '전세예측':
+        st.title("전세예측📈")
+        prediction2()
     
     elif sub_choice == '전월세 월평균 그래프':
         st.title("전월세 월평균 그래프📉")
@@ -198,10 +202,6 @@ def run_predict():
             st.markdown('# 금일 거래는 없습니다.')
             st.plotly_chart(fig)
 
-    elif sub_choice == '전세예측':
-        st.title("전세예측📈")
-        prediction2()
-
     elif sub_choice == '전월세 전환율/대출이자 계산기':
         st.title("전월세 전환율/대출이자 계산기🧾")
         # 전월세 전환율 계산기 / 이자 계산
@@ -255,7 +255,7 @@ def run_predict():
         p6 = st.empty()
 
         st.markdown('***')
-        st.write("#### 대출 이자 계산")
+        st.write("#### 대출 이자 계산🏦")
         e = st.selectbox('상환 방법', ['원리금균등상환', '원금균등상환', '원금만기일시상환'])
         c7, c8, c9 = st.columns([1,1,1])
         p7 = c7.empty()

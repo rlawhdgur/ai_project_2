@@ -44,6 +44,5 @@ elif selected3 == "🤖챗봇":
 elif selected3 == "💬건의사항":
     run_suggestions()
 
-
 else:
     selected3 == "🏠Home"

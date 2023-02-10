@@ -19,15 +19,13 @@ from update import update_data
 
 
 def run_title():
-    """홈페이지에서 인덱스화면을 표시하는 함수입니다.
-    Args:
-        
+    """ 홈페이지에서 인덱스화면을 표시하는 함수입니다.
+    SQLite DB(mydata)에 서울시 실거래가(budongsan2)에 대한 데이터를 불러와 
+    인덱스화면을 표시합니다.
 
-    Returns:
-        
-
-    Raises:
-        ValueError : 
+    Parameters:
+    Returns: 최종적으로 가공한 데이터를 리턴합니다.
+    
     """
     # 서울시공공데이터에서 인증키를 받아 데이터를 받아옴
     # https://data.seoul.go.kr/dataList/OA-21276/S/1/datasetView.do
