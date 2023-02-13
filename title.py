@@ -33,10 +33,10 @@ def run_title():
     # service_key : 
 
     # run_update()
-    data = update_data()
+    # data = update_data()
     # data = pd.read_csv('data/bds_data.csv', encoding='cp949')
 
-    data2 = data.copy()
+    # data2 = data.copy()
 
     # now = datetime.now()
     # before_day = now - relativedelta(days=1)
@@ -48,7 +48,7 @@ def run_title():
     st.subheader("""
     👑실거래 현황 (최신순)
     - *최근 서울시 실거래가 현황입니다!*
-    *※ 매일 오전 09시 이후 데이터 갱신 ※*
+    - *※ 매일 오전 09시 이후 데이터 갱신 ※*
     """)
     # run_update()
     data = update_data()
