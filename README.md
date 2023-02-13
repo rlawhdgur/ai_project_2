@@ -44,12 +44,13 @@
 - prophet : 1.1.2v
 - openai : 0.26.5v
 - streamlit_chat : 0.0.2.1v
-- requsets : 2.28.2v
-"""
+- requsets : 2.28.2v <br>
+<summary>라이브러리 설명</summary>
+'
 streamlit : 웹사이트 구현
 streamlit_option_menu : 메뉴의 옵션 목록에서 단일 항목을 선택할 수 있게 해주는 streamlit 구성요소
 
-"""
+'
 
 ## 소스코드 설명
 ***
