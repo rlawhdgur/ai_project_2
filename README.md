@@ -36,10 +36,10 @@
 - numpy : 1.24.1v
 - matplotlib : 3.6.3v
 - plotly : 5.13.0v
+- seaborn : 0.12.2v
 - geopandas : 0.12.2v
 - scikit-learn : 1.2.1v
 - tensorflow : 2.9.0v
-- seaborn : 0.12.2v
 - pydeck : 0.8.0v
 - prophet : 1.1.2v
 - openai : 0.26.5v
@@ -51,6 +51,19 @@
 ```
 streamlit : 웹사이트 구현
 streamlit_option_menu : 메뉴의 옵션 목록에서 단일 항목을 선택할 수 있게 해주는 streamlit 구성요소
+pandas : 데이터 작업
+numpy : 다차원 배열 작업
+matplotlib : 데이터 시각화 (도식화)
+plotly : 데이터 시각화
+seaborn : matplotlib를 기반 시각화
+geopandas : 지리정보 데이터 작업
+scikit-learn : 머신러닝
+tensorflow : 딥러닝 프로그램 구현
+pydeck : 지도 시각화
+prophet : 시계열 예측 패키지
+openai : GPT3
+streamlit_chat : streamlit 구성요소 (AI챗봇)
+requsets : HTTP 요청
 ```
 </details>
 
