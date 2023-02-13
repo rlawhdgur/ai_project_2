@@ -37,7 +37,14 @@
 - matplotlib : 3.6.3v
 - plotly : 5.13.0v
 - geopandas : 0.12.2v
-- json , math, time, sqlite3
+- scikit-learn : 1.2.1v
+- tensorflow : 2.9.0v
+- seaborn : 0.12.2v
+- pydeck : 0.8.0v
+- prophet : 1.1.2v
+- openai : 0.26.5v
+- streamlit_chat : 0.0.2.1v
+- requsets : 2.28.2v
 
 ## 소스코드 설명
 ***
