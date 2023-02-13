@@ -192,6 +192,7 @@ def run_update():
     cs.close()
     dbConn.close()
     # print("종료")
+    
 # 전체 데이터 불러오는 함수
 def update_data():
     '''
