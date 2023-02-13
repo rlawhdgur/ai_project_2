@@ -20,10 +20,14 @@ def run_search():
     *※ 왼쪽 사이드바에 있는 것을 조건에 맞게 선택하신 후 조회버튼을 눌러주세요※*
     # """)
     # data = pd.read_csv('data/bds_data.csv', encoding='cp949')
+
+    # 데이터 불러오기
     data = update_data()
+
     latest = data.loc[1,['CNTRCT_DE']].values[0]
     st.write("기간 : 2022.01.01 ~ " +f'{latest}' + " (계약일 기준)")
 
+    # 데이터의 자치구명 유니크 값만 가져오기
     gu = data['SGG_NM'].unique()
 
     # 해당 구 선택
@@ -121,7 +125,7 @@ def run_search():
     except:
         st.sidebar.error("범위 안 숫자를 입력하시오.")
 
-    # 면적(평)
+    # 임대면적(평)
     def update_slider_area():
         st.session_state.slider_area_min = int(st.session_state.numeric_area_min)
         st.session_state.slider_area_max = int(st.session_state.numeric_area_max)
