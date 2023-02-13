@@ -46,7 +46,7 @@
 - streamlit_chat : 0.0.2.1v
 - requsets : 2.28.2v <br>
 <details>
-<summary>라이브러리 설명</summary>
+<summary> **라이브러리 설명** </summary>
 <div markdown="1">
 
 'streamlit : 웹사이트 구현
