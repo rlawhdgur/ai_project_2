@@ -31,7 +31,7 @@
 
 ### 라이브러리 버전
 - streamlit : 1.17.0v
-  - from streamlit_option_menu import option_menu : 0.3.2v
+- streamlit_option_menu : 0.3.2v
 - pandas : 1.5.3v
 - numpy : 1.24.1v
 - matplotlib : 3.6.3v
@@ -45,6 +45,11 @@
 - openai : 0.26.5v
 - streamlit_chat : 0.0.2.1v
 - requsets : 2.28.2v
+"""
+streamlit : 웹사이트 구현
+streamlit_option_menu : 메뉴의 옵션 목록에서 단일 항목을 선택할 수 있게 해주는 streamlit 구성요소
+
+"""
 
 ## 소스코드 설명
 ***
