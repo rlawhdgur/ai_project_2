@@ -51,7 +51,7 @@
 ```
 streamlit : 웹사이트 구현
 streamlit_option_menu : 메뉴의 옵션 목록에서 단일 항목을 선택할 수 있게 해주는 streamlit 구성요소
-pandas : 데이터 작업
+pandas : 데이터 분석
 numpy : 다차원 배열 작업
 matplotlib : 데이터 시각화 (도식화)
 plotly : 데이터 시각화
