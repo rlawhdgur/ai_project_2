@@ -51,7 +51,7 @@ def run_predict():
 
     elif sub_choice == '전세예측':
         st.title("전세예측📈")
-        prediction2()
+        prediction2(data)
     
     elif sub_choice == '전월세 월평균 그래프':
         st.title("전월세 월평균 그래프📉")
