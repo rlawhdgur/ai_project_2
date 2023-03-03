@@ -11,7 +11,7 @@ from search import run_search
 from predict import run_predict
 from suggestions import run_suggestions
 from update import update_data
-from chatbot.chatbot import chatrun
+from chatbot import chatrun
 
 
 st.title('🏘️내 방, 어디👀?')
