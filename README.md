@@ -1,7 +1,7 @@
 # 내 방, 어디 ? (version2)
 - [streamlit 배포 링크](https://rlawhdgur-ai-project-2-app-tn50qs.streamlit.app/)
-- 👉[발표영상](https://www.youtube.com/watch?v=RbN39pUA1Ww)
-- 👉[데모영상](https://www.youtube.com/watch?v=j3rdthS7PM8)
+- 👉 [발표영상링크](https://www.youtube.com/watch?v=RbN39pUA1Ww)
+- 👉 [데모영상링크](https://www.youtube.com/watch?v=j3rdthS7PM8)
 ![image](https://user-images.githubusercontent.com/120995529/218030505-2920e367-69ba-4705-a85b-eb2a647da3df.png)
 ***
 ### Update 내용
