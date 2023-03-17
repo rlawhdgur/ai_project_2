@@ -301,3 +301,31 @@ def prediction2(data):
             ax.legend()
             plt.title('LSTM Graph')
             st.pyplot(fig)
+
+
+
+            #  # dates = forecast['ds']
+            # # y_truedates = dates[:len(dates)-30, ]
+            # # y_predates = dates[len(dates)-30:, ]
+
+            # true_df = forecast.loc[forecast['ds'] <= date, ['ds','trend']]
+            # pred_df = forecast.loc[forecast['ds'] > date, ['ds','trend']]
+            # # st.dataframe(true_df)
+
+            # fig, ax = plt.subplots()
+            # ax.plot(true_df['ds'], true_df['trend'],label='past')
+            # ax.fill_between(x = true_df['ds'], 
+            #                 y1=forecast.loc[forecast['ds'] <= date, ['yhat_lower']]['yhat_lower'], 
+            #                 y2=forecast.loc[forecast['ds'] <= date, ['yhat_upper']]['yhat_upper'], 
+            #                 color='#70D5F5', alpha=0.2, label='Uncertainty interval'
+            #                 )
+            # ax.plot(pred_df['ds'], forecast.loc[forecast['ds'] > date, ['yhat']],label='prediction')
+            # ax.fill_between(x = pred_df['ds'], 
+            #                 y1=forecast.loc[forecast['ds'] > date, ['yhat_lower']]['yhat_lower'], 
+            #                 y2=forecast.loc[forecast['ds'] > date, ['yhat_upper']]['yhat_upper'], 
+            #                 color='#F55C1A', alpha=0.2, label='Uncertainty interval'
+            #                 )
+            # ax.legend()
+            # ax.grid(True, which='major', c='gray', ls='-', lw=1, alpha=0.2)
+            # ax.set_title('Prophet 모델')
+            # st.pyplot(fig)
